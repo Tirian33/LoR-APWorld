@@ -133,9 +133,14 @@ items: Dict[str, str] = {
     "Black Silence":                                                    "Progression",
 }
 
+PROGRESSION_ITEMS = {"Binah", "Black Silence", "Bonus Passive Attribute Point"}
+USEFUL_CATEGORIES = {"Librarian", "Reception"}
+
 item_table = {}
 
-i = 0
-for j, v in items.items():
-    item_table[j] = LORItemData(v, base_offset + i, ItemClassification.progression)
-    i += 1
+for i, (item_name, category) in enumerate(items.items()):
+    if item_name in PROGRESSION_ITEMS or category in USEFUL_CATEGORIES:
+        classification = ItemClassification.progression
+    else:
+        classification = ItemClassification.filler
+    item_table[item_name] = LORItemData(category, base_offset + i, classification)
