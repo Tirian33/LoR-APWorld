@@ -9,15 +9,18 @@ class LORLocationData(NamedTuple):
     address: int | None = None
     parent: Region | None = None
 
-base_offset: int = 143000
+def add_regions(regions: Dict[str, list[str]], start: int):
+    names = [name for locs in regions.values() for name in locs]
+    return [LORLocationData(name, start + i) for i, name in enumerate(names)]
 
-location_regions: Dict[str, list[str]] = {
-    #Always start with Canard & Urban Myth to avoid early bricks
+
+book_offset: int = 143000
+book_regions: Dict[str, list[str]] = {
     "Canard": [
         "Book of Rats",
         "Book of a Grade 9 Fixer",
         "Book of Finn",
-        "Book of Yun’s Office",
+        "Book of Yun's Office",
         "Book of Eri",
         "Book of Yun",
         "Book of the Brotherhood of Iron",
@@ -51,19 +54,20 @@ location_regions: Dict[str, list[str]] = {
         "Book of Walter",
     ],
  
-    "Reception of Molar Office": [
-        "Book of Molar Office",
-        "Book of Olga",
-        "Book of Rain",
-        "Book of Mika",
-    ],
- 
     "Reception of Stray Dogs": [
         "Book of the Stray Dogs",
         "Book of Gyeong-mi",
         "Book of Dino",
         "Book of Zulu",
     ],
+
+    "Reception of Molar Office": [
+        "Book of Molar Office",
+        "Book of Olga",
+        "Book of Rain",
+        "Book of Mika",
+    ],
+
  
     "Urban Legend-class Syndicate Reception": [
         "Dark Alleys of the Backstreets, Vol. II",
@@ -137,8 +141,9 @@ location_regions: Dict[str, list[str]] = {
     ],
  
     "Rusted Chains Reception": [
-        "Book of a Rusted Chainlink",
-        "Book of Jikan"
+        "Book of Jikan",
+        "Book of a Rusted Chainlink"
+        
     ],
  
     "Workshop-affiliated Fixers Reception": [
@@ -219,6 +224,14 @@ location_regions: Dict[str, list[str]] = {
     "Reception of The Blue Reverberation": [
         "Book of a Church of Gears Worshipper",
     ],
+    
+    "Reception of Liu Association Section 2": [
+        "Liu Association Section 2, Vol I",
+        "Liu Association Section 2, Vol II",
+        "Book of Lowell",
+        "Book of Cecil",
+        "Book of Mei",
+    ],
  
     "Reception of Cane Office": [
         "Book of Cane Office",
@@ -237,14 +250,6 @@ location_regions: Dict[str, list[str]] = {
     "Reception of Liu Association Section 1": [
         "Book of Liu Association Section 1",
         "Book of Chun",
-    ],
-
-    "Reception of Liu Association Section 2": [
-        "Liu Association Section 2, Vol I",
-        "Liu Association Section 2, Vol II",
-        "Book of Lowell",
-        "Book of Cecil",
-        "Book of Mei",
     ],
  
     "Reception of The Red Mist": [
@@ -316,9 +321,10 @@ location_regions: Dict[str, list[str]] = {
         "Book of Harold",
         "Book of Mirinae",
         "Book of Olivier"
-    ],
-
-    #Floors
+    ]
+}
+floor_offset: int = 143300
+floor_regions: Dict[str, list[str]] = {
     "Floor of History Early": [
         "Scorched Girl suppression(1)",
         "Scorched Girl suppression(2)",
@@ -563,8 +569,10 @@ location_regions: Dict[str, list[str]] = {
         "The Snow Queen suppression(1)",
         "The Snow Queen suppression(2)",
         "The Snow Queen suppression(3)",
-    ],
-
+    ]
+}
+wincon_offset: int = 143600
+wincon_regions: Dict[str, list[str]] = {
     "Reverb Ensemble": [
         "[Ensemble] The Crying Children(1)",
         "[Ensemble] The Crying Children(2)",
@@ -628,6 +636,9 @@ location_regions: Dict[str, list[str]] = {
     ],
 }
 
+#Merge into one for export to init
+location_regions: Dict[str, list[str]] = book_regions | floor_regions | wincon_regions
+
 #Regions to start with
 ALWAYS_ACCESSIBLE_REGIONS = {
     "Canard", "Urban Myth",
@@ -638,13 +649,12 @@ ALWAYS_ACCESSIBLE_REGIONS = {
     "Floor of General Works",
 }
 
-#Nice dictionary. Yesod, myongest it into a pancake.
-location_table = [
-    LORLocationData(name, base_offset + i)
-    for i, name in enumerate(
-        name for locs in location_regions.values() for name in locs
-    )
-]
+#load the table with correct offsets
+location_table: list[LORLocationData] = []
+location_table.extend(add_regions(book_regions, book_offset))
+location_table.extend(add_regions(floor_regions, floor_offset))
+location_table.extend(add_regions(wincon_regions, wincon_offset))
+
 
 location_name_to_data: Dict[str, LORLocationData] = {
     data.name: data for data in location_table
