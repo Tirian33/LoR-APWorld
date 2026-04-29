@@ -4,21 +4,92 @@ from BaseClasses import CollectionState
 from .locations import location_regions
 
 #Which floor region maps to which librarian item
-REGION_LIBRARIAN_LINK: typing.Dict[str, str] = {
-    "Floor of History Late":                "Floor of History Librarian",
-    "Floor of Technological Sciences Late": "Floor of Technological Sciences Librarian",
-    "Floor of Literature Late":             "Floor of Literature Librarian",
-    "Floor of Art Late":                    "Floor of Art Librarian",
-    "Floor of Natural Sciences Late":       "Floor of Natural Sciences Librarian",
-    "Floor of Language Late":               "Floor of Language Librarian",
-    "Floor of Social Sciences Late":        "Floor of Social Sciences Librarian",
-    "Floor of Philosophy Late":             "Floor of Philosophy Librarian",
-    "Floor of Religion":                    "Floor of Religion Librarian"
+LIBRARIAN_ITEMS = {
+    "Floor of History Librarian",
+    "Floor of Technological Sciences Librarian",
+    "Floor of Literature Librarian",
+    "Floor of Art Librarian",
+    "Floor of Natural Sciences Librarian",
+    "Floor of Language Librarian",
+    "Floor of Social Sciences Librarian",
+    "Floor of Philosophy Librarian",
+    "Floor of Religion Librarian"
+}
+
+#Progression of floor abno fights & requirements.
+FLOOR_ABNOS: typing.Dict[str, list[tuple[str, str, str | None]]] = {
+    "Floor of History": [
+        ("Scorched Girl", "Happy Teddy Bear", None),
+        ("Happy Teddy Bear", "Fairy Festival", None),
+        ("Fairy Festival", "Queen Bee", "Floor of History Librarian"),
+        ("Queen Bee", "Floor of History Final", None),
+    ],
+
+    "Floor of Technological Sciences": [
+        ("Forsaken Murderer", "All-Around Helper", None),
+        ("All-Around Helper", "Singing Machine", None),
+        ("Singing Machine", "The Funeral of the Dead Butterflies", "Floor of Technological Sciences Librarian"),
+        ("The Funeral of the Dead Butterflies", "Floor of Technological Sciences Final", None),
+    ],
+
+    "Floor of Literature": [
+        ("Today's Shy Look", "The Red Shoes", None),
+        ("The Red Shoes", "Spider Bud", None),
+        ("Spider Bud", "Laetitia", "Floor of Literature Librarian"),
+        ("Laetitia", "Floor of Literature Final", None),
+    ],
+
+    "Floor of Art": [
+        ("Fragment of the Universe", "Child of the Galaxy", None),
+        ("Child of the Galaxy", "Porccubus", None),
+        ("Porccubus", "Alriune", "Floor of Art Librarian"),
+        ("Alriune", "Floor of Art Final", None),
+    ],
+
+    "Floor of Natural Sciences": [
+        ("The Queen of Hatred", "The Knight of Despair", None),
+        ("The Knight of Despair", "The King of Greed", None),
+        ("The King of Greed", "The Servant of Wrath", "Floor of Natural Sciences Librarian"),
+        ("The Servant of Wrath", "Floor of Natural Sciences Final", None),
+    ],
+
+    "Floor of Language": [
+        ("Little Red Riding Hooded Mercenary", "Big and Will be Bad Wolf", None),
+        ("Big and Will be Bad Wolf", "Mountain of Smiling Bodies", None),
+        ("Mountain of Smiling Bodies", "Nosferatu", "Floor of Language Librarian"),
+        ("Nosferatu", "Floor of Language Final", None),
+    ],
+
+    "Floor of Social Sciences": [
+        ("Scarecrow Searching for Wisdom", "Warm-hearted Woodsman", None),
+        ("Warm-hearted Woodsman", "The Road Home & Scaredy Cat", None),
+        ("The Road Home & Scaredy Cat", "Ozma", "Floor of Social Sciences Librarian"),
+        ("Ozma", "Floor of Social Sciences Final", None),
+    ],
+
+    "Floor of Philosophy": [
+        ("Big Bird", "Punishing Bird", "Floor of Philosophy Librarian"),
+        ("Punishing Bird", "Judgement Bird", None),
+        ("Judgement Bird", "Floor of Philosophy Final", "Binah"),
+    ],
+
+    "Floor of Religion": [
+        ("The Burrowing Heaven", "The Price of Silence", None),
+        ("The Price of Silence", "Blue Star", "Floor of Religion Librarian"),
+        ("Blue Star", "Floor of Religion Final", None),
+    ],
+
+    "Floor of General Works": [
+        ("Bloodbath", "Heart of Aspiration", None),
+        ("Heart of Aspiration", "Pinocchio", None),
+        ("Pinocchio", "The Snow Queen", None),
+        ("The Snow Queen", "Keter Realization", "Floor of General Works Librarian"),
+    ],
 }
 
 #Floors that need a special item in addition to librarian count
 SPECIAL_FLOOR_ITEM: typing.Dict[str, str] = {
-    "Floor of Philosophy Late": "Binah"
+    "Floor of Philosophy Final": "Binah"
 }
 
 #Which floor region each ensemble check belongs to
@@ -35,28 +106,32 @@ ENSEMBLE_FLOOR: typing.Dict[str, str] = {
     "[Ensemble] The Blue Reverberation":    "Floor of General Works",
 }
 
-LIBRARIAN_ITEMS = set(REGION_LIBRARIAN_LINK.values())
-
 def set_rules(world) -> None:
     player = world.player
     mw = world.multiworld
     all_locations = {loc.name: loc for loc in mw.get_locations(player)}
 
-    #Realization location rules - require 2 librarians to be in logic
-    for floor, librarian in REGION_LIBRARIAN_LINK.items():
-        for loc_name in location_regions[floor]:
-            if "Realization" not in loc_name:
-                continue
-            loc = all_locations[loc_name]
-            if floor in SPECIAL_FLOOR_ITEM:
-                required_item = SPECIAL_FLOOR_ITEM[floor]
-                set_rule(loc, lambda state, item=required_item, lib=librarian:
-                    state.has(item, player) and state.count(lib, player) >= 2
-                )
+    #Local helper to mark prereqs
+    def region_complete(state: CollectionState, region_name: str) -> bool:
+        return all(
+            loc.can_reach(state) and loc.item and state.has(loc.item.name, player) 
+            for loc in mw.get_region(region_name, player).locations
+        )
+    
+    #Logic chains on entrances
+    for floor, abnos in FLOOR_ABNOS.items():
+        for prev, targ, req in abnos:
+            entrance = mw.get_entrance(f"{prev} -> {targ}", player)
+            if req == "Binah":
+                set_rule(entrance, lambda state, p=prev, req=req: 
+                         region_complete(state, p) and
+                         state.count(req, player) >= 1)
+            elif req:
+                set_rule(entrance, lambda state, p=prev, req=req: 
+                         region_complete(state, p) and
+                         state.count(req, player) >= 2)
             else:
-                set_rule(loc, lambda state, lib=librarian:
-                    state.count(lib, player) >= 2
-                )
+                set_rule(entrance, lambda state, p=prev: region_complete(state, p))
 
     #Local helper to count completed realizations. Ensures all checks are done to handle cheat console 
     def floor_realizations_complete(state: CollectionState, floor: str) -> bool:
@@ -67,25 +142,26 @@ def set_rules(world) -> None:
         )
 
     #Ensemble in logic if floor realized; can be considered yellow otherwise. Some fights are possible with just the patron so...
-    for loc_name in location_regions["Reverb Ensemble"]:
-        #rm (N)
-        ensemble_base = loc_name.rsplit("(", 1)[0].rstrip()
-        if ensemble_base in ENSEMBLE_FLOOR:
-            floor = ENSEMBLE_FLOOR[ensemble_base]
+    for floor_name, chain in FLOOR_ABNOS.items():
+        final_region = chain[-1][1]
+        ensemble_region = f"[Ensemble] {floor_name.replace(' Final', '')}"
+        for loc_name in location_regions[ensemble_region]:
             set_rule(
-                all_locations[loc_name], lambda state, f=floor: floor_realizations_complete(state, f)
+                all_locations[loc_name],
+                lambda state, f=final_region: floor_realizations_complete(state, f)
             )
 
     
     #Local helper to count completed ensembles
     def ensemble_complete_count(state: CollectionState) -> int:
         return sum(
-            1 for loc_name in location_regions["Reverb Ensemble"]
+            1 for ensemble_name in FLOOR_ABNOS
+             for loc_name in location_regions[f"[Ensemble] {ensemble_name}"]
             if all_locations[loc_name].can_reach(state)
         )
 
-    #Black Silence requires at least 2 ensemble checks complete. This ensure if player simply won the Keter ensemble fight. Again not needed, but helps discourage bks
     for loc_name in location_regions["Black Silence Reception"]:
         set_rule(
-            all_locations[loc_name],lambda state: ensemble_complete_count(state) >= 2
+            all_locations[loc_name],
+            lambda state: ensemble_complete_count(state) >= 2
         )
