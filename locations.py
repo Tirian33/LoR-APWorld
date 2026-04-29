@@ -325,22 +325,31 @@ book_regions: Dict[str, list[str]] = {
 }
 floor_offset: int = 143300
 floor_regions: Dict[str, list[str]] = {
-    "Floor of History Early": [
+    "Scorched Girl": [
         "Scorched Girl suppression(1)",
         "Scorched Girl suppression(2)",
-        "Scorched Girl suppression(3)",
+        "Scorched Girl suppression(3)"
+    ],
+
+    "Happy Teddy Bear": [
         "Happy Teddy Bear suppression(1)",
         "Happy Teddy Bear suppression(2)",
-        "Happy Teddy Bear suppression(3)",
+        "Happy Teddy Bear suppression(3)"
+    ],
+
+    "Fairy Festival": [
         "Fairy Festival suppression(1)",
         "Fairy Festival suppression(2)",
         "Fairy Festival suppression(3)"
     ],
 
-    "Floor of History Late": [
+    "Queen Bee": [
         "Queen Bee suppression(1)",
         "Queen Bee suppression(2)",
-        "Queen Bee suppression(3)",
+        "Queen Bee suppression(3)"
+    ],
+
+    "Floor of History Final": [
         "Floor of History Realization(1)",
         "Floor of History Realization(2)",
         "Floor of History Realization(3)",
@@ -351,22 +360,31 @@ floor_regions: Dict[str, list[str]] = {
         "Floor of History Realization(8)"
     ],
 
-    "Floor of Technological Sciences Early": [
+    "Forsaken Murderer": [
         "Forsaken Murderer suppression(1)",
         "Forsaken Murderer suppression(2)",
-        "Forsaken Murderer suppression(3)",
+        "Forsaken Murderer suppression(3)"
+    ],
+
+    "All-Around Helper": [
         "All-Around Helper suppression(1)",
         "All-Around Helper suppression(2)",
-        "All-Around Helper suppression(3)",
+        "All-Around Helper suppression(3)"
+    ],
+
+    "Singing Machine": [
         "Singing Machine suppression(1)",
         "Singing Machine suppression(2)",
         "Singing Machine suppression(3)"
-        ],
+    ],
 
-    "Floor of Technological Sciences Late": [
+    "The Funeral of the Dead Butterflies": [
         "The Funeral of the Dead Butterflies suppression(1)",
         "The Funeral of the Dead Butterflies suppression(2)",
-        "The Funeral of the Dead Butterflies suppression(3)",
+        "The Funeral of the Dead Butterflies suppression(3)"
+    ],
+
+    "Floor of Technological Sciences Final": [
         "Floor of Technological Sciences Realization(1)",
         "Floor of Technological Sciences Realization(2)",
         "Floor of Technological Sciences Realization(3)",
@@ -377,22 +395,31 @@ floor_regions: Dict[str, list[str]] = {
         "Floor of Technological Sciences Realization(8)"
     ],
 
-    "Floor of Literature Early": [
+    "Today's Shy Look": [
         "Today's Shy Look suppression(1)",
         "Today's Shy Look suppression(2)",
-        "Today's Shy Look suppression(3)",
+        "Today's Shy Look suppression(3)"
+    ],
+
+    "The Red Shoes": [
         "The Red Shoes suppression(1)",
         "The Red Shoes suppression(2)",
-        "The Red Shoes suppression(3)",
+        "The Red Shoes suppression(3)"
+    ],
+
+    "Spider Bud": [
         "Spider Bud suppression(1)",
         "Spider Bud suppression(2)",
         "Spider Bud suppression(3)"
-        ],
+    ],
 
-    "Floor of Literature Late": [
+    "Laetitia": [
         "Laetitia suppression(1)",
         "Laetitia suppression(2)",
-        "Laetitia suppression(3)",
+        "Laetitia suppression(3)"
+    ],
+
+    "Floor of Literature Final": [
         "Floor of Literature Realization(1)",
         "Floor of Literature Realization(2)",
         "Floor of Literature Realization(3)",
@@ -403,22 +430,31 @@ floor_regions: Dict[str, list[str]] = {
         "Floor of Literature Realization(8)"
     ],
 
-    "Floor of Art Early": [
+    "Fragment of the Universe": [
         "Fragment of the Universe suppression(1)",
         "Fragment of the Universe suppression(2)",
-        "Fragment of the Universe suppression(3)",
+        "Fragment of the Universe suppression(3)"
+    ],
+    
+    "Child of the Galaxy": [
         "Child of the Galaxy suppression(1)",
         "Child of the Galaxy suppression(2)",
-        "Child of the Galaxy suppression(3)",
+        "Child of the Galaxy suppression(3)"
+    ],
+
+    "Porccubus": [
         "Porccubus suppression(1)",
         "Porccubus suppression(2)",
         "Porccubus suppression(3)"
-        ],
+    ],
 
-    "Floor of Art Late": [
+    "Alriune": [
         "Alriune suppression(1)",
         "Alriune suppression(2)",
-        "Alriune suppression(3)",
+        "Alriune suppression(3)"
+    ],
+
+    "Floor of Art Final": [
         "Floor of Art Realization(1)",
         "Floor of Art Realization(2)",
         "Floor of Art Realization(3)",
@@ -429,22 +465,31 @@ floor_regions: Dict[str, list[str]] = {
         "Floor of Art Realization(8)"
     ],
 
-    "Floor of Natural Sciences Early": [
+    "The Queen of Hatred": [
         "The Queen of Hatred suppression(1)",
         "The Queen of Hatred suppression(2)",
-        "The Queen of Hatred suppression(3)",
+        "The Queen of Hatred suppression(3)"
+    ],
+
+    "The Knight of Despair": [
         "The Knight of Despair suppression(1)",
         "The Knight of Despair suppression(2)",
         "The Knight of Despair suppression(3)"
-        ],
+    ],
 
-    "Floor of Natural Sciences Late": [
+    "The King of Greed": [
         "The King of Greed suppression(1)",
         "The King of Greed suppression(2)",
-        "The King of Greed suppression(3)",
+        "The King of Greed suppression(3)"
+    ],
+
+    "The Servant of Wrath": [
         "The Servant of Wrath suppression(1)",
         "The Servant of Wrath suppression(2)",
-        "The Servant of Wrath suppression(3)",
+        "The Servant of Wrath suppression(3)"
+    ],
+
+    "Floor of Natural Sciences Final": [
         "Floor of Natural Sciences Realization(1)",
         "Floor of Natural Sciences Realization(2)",
         "Floor of Natural Sciences Realization(3)",
@@ -455,22 +500,31 @@ floor_regions: Dict[str, list[str]] = {
         "Floor of Natural Sciences Realization(8)"
     ],
 
-    "Floor of Language Early": [
+    "Little Red Riding Hooded Mercenary": [
         "Little Red Riding Hooded Mercenary suppression(1)",
         "Little Red Riding Hooded Mercenary suppression(2)",
-        "Little Red Riding Hooded Mercenary suppression(3)",
+        "Little Red Riding Hooded Mercenary suppression(3)"
+    ],
+
+    "Big and Will be Bad Wolf": [
         "Big and Will be Bad Wolf suppression(1)",
         "Big and Will be Bad Wolf suppression(2)",
         "Big and Will be Bad Wolf suppression(3)"
-        ],
+    ],
 
-    "Floor of Language Late": [
+    "Mountain of Smiling Bodies": [
         "Mountain of Smiling Bodies suppression(1)",
         "Mountain of Smiling Bodies suppression(2)",
-        "Mountain of Smiling Bodies suppression(3)",
+        "Mountain of Smiling Bodies suppression(3)"
+    ],
+
+    "Nosferatu": [
         "Nosferatu suppression(1)",
         "Nosferatu suppression(2)",
-        "Nosferatu suppression(3)",
+        "Nosferatu suppression(3)"
+    ],
+
+    "Floor of Language Final": [
         "Floor of Language Realization(1)",
         "Floor of Language Realization(2)",
         "Floor of Language Realization(3)",
@@ -478,25 +532,34 @@ floor_regions: Dict[str, list[str]] = {
         "Floor of Language Realization(5)",
         "Floor of Language Realization(6)",
         "Floor of Language Realization(7)",
-        "Floor of Language Realization(8)",
+        "Floor of Language Realization(8)"
     ],
 
-    "Floor of Social Sciences Early": [
+    "Scarecrow Searching for Wisdom": [
         "Scarecrow Searching for Wisdom suppression(1)",
         "Scarecrow Searching for Wisdom suppression(2)",
-        "Scarecrow Searching for Wisdom suppression(3)",
+        "Scarecrow Searching for Wisdom suppression(3)"
+    ],
+
+    "Warm-hearted Woodsman": [
         "Warm-hearted Woodsman suppression(1)",
         "Warm-hearted Woodsman suppression(2)",
         "Warm-hearted Woodsman suppression(3)"
-        ],
-
-    "Floor of Social Sciences Late": [
+    ],
+    
+    "The Road Home & Scaredy Cat": [
         "The Road Home & Scaredy Cat suppression(1)",
         "The Road Home & Scaredy Cat suppression(2)",
-        "The Road Home & Scaredy Cat suppression(3)",
+        "The Road Home & Scaredy Cat suppression(3)"
+    ],
+
+    "Ozma": [
         "Ozma suppression(1)",
         "Ozma suppression(2)",
-        "Ozma suppression(3)",
+        "Ozma suppression(3)"
+    ],
+
+    "Floor of Social Sciences Final": [
         "Floor of Social Sciences Realization(1)",
         "Floor of Social Sciences Realization(2)",
         "Floor of Social Sciences Realization(3)",
@@ -504,22 +567,28 @@ floor_regions: Dict[str, list[str]] = {
         "Floor of Social Sciences Realization(5)",
         "Floor of Social Sciences Realization(6)",
         "Floor of Social Sciences Realization(7)",
-        "Floor of Social Sciences Realization(8)",
+        "Floor of Social Sciences Realization(8)"
     ],
 
-    "Floor of Philosophy Early": [
+    "Big Bird": [
         "Big Bird suppression(1)",
         "Big Bird suppression(2)",
-        "Big Bird suppression(3)",
+        "Big Bird suppression(3)"
+    ],
+
+    "Punishing Bird": [
         "Punishing Bird suppression(1)",
         "Punishing Bird suppression(2)",
         "Punishing Bird suppression(3)"
-        ],
+    ],
 
-    "Floor of Philosophy Late": [
+    "Judgement Bird": [
         "Judgement Bird suppression(1)",
         "Judgement Bird suppression(2)",
-        "Judgement Bird suppression(3)",
+        "Judgement Bird suppression(3)"
+    ],
+
+    "Floor of Philosophy Final": [
         "Floor of Philosophy Realization(1)",
         "Floor of Philosophy Realization(2)",
         "Floor of Philosophy Realization(3)",
@@ -530,19 +599,28 @@ floor_regions: Dict[str, list[str]] = {
         "Floor of Philosophy Realization(8)",
         "Floor of Philosophy Realization(9)",
         "Floor of Philosophy Realization(10)",
-        "Floor of Philosophy Realization(11)",
+        "Floor of Philosophy Realization(11)"
     ],
 
-    "Floor of Religion": [
+    "The Burrowing Heaven": [
         "The Burrowing Heaven suppression(1)",
         "The Burrowing Heaven suppression(2)",
-        "The Burrowing Heaven suppression(3)",
+        "The Burrowing Heaven suppression(3)"
+    ],
+
+    "The Price of Silence": [
         "The Price of Silence suppression(1)",
         "The Price of Silence suppression(2)",
-        "The Price of Silence suppression(3)",
+        "The Price of Silence suppression(3)"
+    ],
+
+    "Blue Star": [
         "Blue Star suppression(1)",
         "Blue Star suppression(2)",
-        "Blue Star suppression(3)",
+        "Blue Star suppression(3)"
+    ],
+
+    "Floor of Religion Final": [
         "Floor of Religion Realization(1)",
         "Floor of Religion Realization(2)",
         "Floor of Religion Realization(3)",
@@ -553,57 +631,93 @@ floor_regions: Dict[str, list[str]] = {
         "Floor of Religion Realization(8)",
         "Floor of Religion Realization(9)",
         "Floor of Religion Realization(10)",
-        "Floor of Religion Realization(11)",
+        "Floor of Religion Realization(11)"
     ],
 
-    "Floor of General Works": [
+    "Bloodbath": [
         "Bloodbath suppression(1)",
         "Bloodbath suppression(2)",
-        "Bloodbath suppression(3)",
+        "Bloodbath suppression(3)"
+    ],
+
+    "Heart of Aspiration": [
         "Heart of Aspiration suppression(1)",
         "Heart of Aspiration suppression(2)",
-        "Heart of Aspiration suppression(3)",
+        "Heart of Aspiration suppression(3)"
+    ],
+
+    "Pinocchio": [
         "Pinocchio suppression(1)",
         "Pinocchio suppression(2)",
-        "Pinocchio suppression(3)",
+        "Pinocchio suppression(3)"
+    ],
+
+    "The Snow Queen": [
         "The Snow Queen suppression(1)",
         "The Snow Queen suppression(2)",
-        "The Snow Queen suppression(3)",
+        "The Snow Queen suppression(3)"
     ]
 }
 wincon_offset: int = 143600
 wincon_regions: Dict[str, list[str]] = {
-    "Reverb Ensemble": [
+    "[Ensemble] Floor of History": [
         "[Ensemble] The Crying Children(1)",
         "[Ensemble] The Crying Children(2)",
-        "[Ensemble] The Crying Children(3)",
+        "[Ensemble] The Crying Children(3)"
+    ],
+
+    "[Ensemble] Floor of Technological Sciences": [
         "[Ensemble] The Church of Gears(1)",
         "[Ensemble] The Church of Gears(2)",
-        "[Ensemble] The Church of Gears(3)",
+        "[Ensemble] The Church of Gears(3)"
+    ],
+    
+    "[Ensemble] Floor of Literature": [
         "[Ensemble] The Musicians of Bremen(1)",
         "[Ensemble] The Musicians of Bremen(2)",
-        "[Ensemble] The Musicians of Bremen(3)",
+        "[Ensemble] The Musicians of Bremen(3)"
+    ],
+    
+    "[Ensemble] Floor of Art": [
         "[Ensemble] The Eighth Chef(1)",
         "[Ensemble] The Eighth Chef(2)",
-        "[Ensemble] The Eighth Chef(3)",
+        "[Ensemble] The Eighth Chef(3)"
+    ],
+    
+    "[Ensemble] Floor of Natural Sciences": [
         "[Ensemble] The 8 o'Clock Circus(1)",
         "[Ensemble] The 8 o'Clock Circus(2)",
-        "[Ensemble] The 8 o'Clock Circus(3)",
+        "[Ensemble] The 8 o'Clock Circus(3)"
+    ],
+    
+    "[Ensemble] Floor of Language": [
         "[Ensemble] L'heure du Loup(1)",
         "[Ensemble] L'heure du Loup(2)",
-        "[Ensemble] L'heure du Loup(3)",
+        "[Ensemble] L'heure du Loup(3)"
+    ],
+    
+    "[Ensemble] Floor of Social Sciences": [
         "[Ensemble] The Puppeteer(1)",
         "[Ensemble] The Puppeteer(2)",
-        "[Ensemble] The Puppeteer(3)",
+        "[Ensemble] The Puppeteer(3)"
+    ],
+    
+    "[Ensemble] Floor of Philosophy": [
         "[Ensemble] The Blood-red Night(1)",
         "[Ensemble] The Blood-red Night(2)",
-        "[Ensemble] The Blood-red Night(3)",
+        "[Ensemble] The Blood-red Night(3)"
+    ],
+    
+    "[Ensemble] Floor of Religion": [
         "[Ensemble] Yesterday's Promise(1)",
         "[Ensemble] Yesterday's Promise(2)",
-        "[Ensemble] Yesterday's Promise(3)",
+        "[Ensemble] Yesterday's Promise(3)"
+    ],
+    
+    "[Ensemble] Floor of General Works": [
         "[Ensemble] The Blue Reverberation(1)",
         "[Ensemble] The Blue Reverberation(2)",
-        "[Ensemble] The Blue Reverberation(3)",
+        "[Ensemble] The Blue Reverberation(3)"
     ],
 
     "Black Silence Reception": [
@@ -612,7 +726,7 @@ wincon_regions: Dict[str, list[str]] = {
         "Black Silence Reception(3)",
         "Black Silence Reception(4)",
         "Black Silence Reception(5)",
-        "Black Silence Reception(6)",
+        "Black Silence Reception(6)"
     ],
 
     "Distorted Ensemble": [
@@ -621,7 +735,7 @@ wincon_regions: Dict[str, list[str]] = {
         "Distorted Ensemble Reception(3)",
         "Distorted Ensemble Reception(4)",
         "Distorted Ensemble Reception(5)",
-        "Distorted Ensemble Reception(6)",
+        "Distorted Ensemble Reception(6)"
     ],
 
     "Keter Realization": [
@@ -632,7 +746,7 @@ wincon_regions: Dict[str, list[str]] = {
         "Floor of General Works Realization(5)",
         "Floor of General Works Realization(6)",
         "Floor of General Works Realization(7)",
-        "Floor of General Works Realization(8)",
+        "Floor of General Works Realization(8)"
     ],
 }
 
@@ -642,11 +756,11 @@ location_regions: Dict[str, list[str]] = book_regions | floor_regions | wincon_r
 #Regions to start with
 ALWAYS_ACCESSIBLE_REGIONS = {
     "Canard", "Urban Myth",
-    "Floor of History Early", "Floor of Technological Sciences Early",
-    "Floor of Literature Early", "Floor of Art Early",
-    "Floor of Natural Sciences Early", "Floor of Language Early",
-    "Floor of Social Sciences Early", "Floor of Philosophy Early",
-    "Floor of General Works",
+	"Scorched Girl", "Forsaken Murderer",
+	"Today's Shy Look", "Fragment of the Universe",
+	"The Queen of Hatred", "Little Red Riding Hooded Mercenary",
+	"Scarecrow Searching for Wisdom", "Big Bird", 
+	"The Burrowing Heaven", "Bloodbath"
 }
 
 #load the table with correct offsets

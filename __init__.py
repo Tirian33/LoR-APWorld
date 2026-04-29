@@ -3,10 +3,10 @@ import random
 from .options import LOROptions
 from .items import LORItem, item_table
 from .locations import ALWAYS_ACCESSIBLE_REGIONS, LORLocation, location_table, location_regions, location_name_to_data
-from .rules import REGION_LIBRARIAN_LINK, SPECIAL_FLOOR_ITEM, LIBRARIAN_ITEMS, set_rules
+from .rules import FLOOR_ABNOS, LIBRARIAN_ITEMS, set_rules
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_item_rule, set_rule
-from BaseClasses import Entrance, ItemClassification, Region, Tutorial
+from BaseClasses import Entrance, ItemClassification, Region, Tutorial, CollectionState
 
 from Utils import visualize_regions
 
@@ -63,40 +63,38 @@ class LORWorld(World):
         for region_name in ALWAYS_ACCESSIBLE_REGIONS:
             menu_region.connect(regions[region_name])
 
+        for val in FLOOR_ABNOS.values():
+            for prev, targ, _ in val:
+                regions[prev].connect(regions[targ], f"{prev} -> {targ}")
+
         #What receptions remain to be unlocked
-        reception_region_names = set(location_regions.keys()) - ALWAYS_ACCESSIBLE_REGIONS - set(REGION_LIBRARIAN_LINK.keys()) - {
+        reception_region_names = set(location_regions.keys()) - ALWAYS_ACCESSIBLE_REGIONS - {
+                region for chain in FLOOR_ABNOS.values()
+                for prev, targ, _ in chain for region in (prev, targ)
+        } - {
             "Reverb Ensemble", "Black Silence Reception", "Distorted Ensemble", "Keter Realization"
         }
         for region_name in reception_region_names:
             entrance = menu_region.connect(regions[region_name])
             set_rule(entrance, lambda state, rec=region_name: state.has(rec, self.player))
  
-        #Late floor regions — require 2x librarian (and special item if needed)
-        for floor, librarian in REGION_LIBRARIAN_LINK.items():
-            entrance = menu_region.connect(regions[floor])
-            if floor in SPECIAL_FLOOR_ITEM:
-                required_item = SPECIAL_FLOOR_ITEM[floor]
-                set_rule(entrance, lambda state, item=required_item, lib=librarian:
-                    state.has(item, self.player) and state.count(lib, self.player) >= 2
-                )
-            else:
-                set_rule(entrance, lambda state, lib=librarian:
-                    state.count(lib, self.player) >= 2
-                )
- 
-        #Any Late floor unlocks access to Reverb Ensemble.
-        for floor in REGION_LIBRARIAN_LINK:
-            regions[floor].connect(regions["Reverb Ensemble"])
- 
-        #Ensemble acts as a logic barrier to the Black Silence Reception.
-        #TODO allow for different options don't staticly assume 2.
-        ensemble_entrance = regions["Reverb Ensemble"].connect(regions["Black Silence Reception"])
-        set_rule(ensemble_entrance, lambda state: sum(
-            1 for loc in regions["Reverb Ensemble"].locations if loc.can_reach(state)
-        ) >= 2)
- 
+        for floor_name, chain in FLOOR_ABNOS.items():
+            final_region = chain[-1][1]
+            regions[final_region].connect(regions[f"[Ensemble] {floor_name.replace(' Final', '')}"])
+
+        def ensemble_complete_count(state: CollectionState) -> int:
+            return sum(
+                1 for floor_name in FLOOR_ABNOS
+                for loc in regions[f"[Ensemble] {floor_name}"].locations
+                if loc.can_reach(state)
+            )
+
+        for floor_name in FLOOR_ABNOS:
+            ensemble_entrance = regions[f"[Ensemble] {floor_name}"].connect(regions["Black Silence Reception"])
+            set_rule(ensemble_entrance, lambda state: ensemble_complete_count(state) >= 2)
+
         #Reverb Ensemble -> Distorted Ensemble TODO
-        regions["Reverb Ensemble"].connect(regions["Distorted Ensemble"])
+        regions["Black Silence Reception"].connect(regions["Distorted Ensemble"])
  
         #Black Silence Reception -> Keter Realization TODO
         regions["Black Silence Reception"].connect(regions["Keter Realization"])
