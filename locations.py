@@ -755,13 +755,16 @@ location_regions: Dict[str, list[str]] = book_regions | floor_regions | wincon_r
 
 #Regions to start with
 ALWAYS_ACCESSIBLE_REGIONS = {
-    "Canard", "Urban Myth",
+    "Canard", "Urban Myth", "Bloodbath",
 	"Scorched Girl", "Forsaken Murderer",
 	"Today's Shy Look", "Fragment of the Universe",
-	"The Queen of Hatred", "Little Red Riding Hooded Mercenary",
-	"Scarecrow Searching for Wisdom", "Big Bird", 
-	"The Burrowing Heaven", "Bloodbath"
 }
+
+#These places require 1 lib to access
+HIGHER_START_ABNOS = [
+    "The Queen of Hatred", "Little Red Riding Hooded Mercenary",
+	"Scarecrow Searching for Wisdom", "Big Bird", "The Burrowing Heaven",
+]
 
 #load the table with correct offsets
 location_table: list[LORLocationData] = []

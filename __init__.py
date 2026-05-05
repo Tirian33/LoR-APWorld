@@ -2,7 +2,7 @@ import typing
 import random
 from .options import LOROptions
 from .items import LORItem, item_table
-from .locations import ALWAYS_ACCESSIBLE_REGIONS, LORLocation, location_table, location_regions, location_name_to_data
+from .locations import ALWAYS_ACCESSIBLE_REGIONS, HIGHER_START_ABNOS, LORLocation, location_table, location_regions, location_name_to_data
 from .rules import FLOOR_ABNOS, LIBRARIAN_ITEMS, set_rules
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_item_rule, set_rule
@@ -61,18 +61,27 @@ class LORWorld(World):
 
         #Always available encounters
         for region_name in ALWAYS_ACCESSIBLE_REGIONS:
-            menu_region.connect(regions[region_name])
+            menu_region.connect(regions[region_name], f"Menu to {region_name}")
+
+        #Starting abno fights that require libs
+        for pos, region_name in enumerate(HIGHER_START_ABNOS):
+            entrance = menu_region.connect(regions[region_name], f"Menu to {region_name}")
+            set_rule(entrance, lambda state, req=LIBRARIAN_ITEMS[pos+4]:
+                     state.count(req, self.player) >= 1
+                     )
 
         for val in FLOOR_ABNOS.values():
-            for prev, targ, _ in val:
-                regions[prev].connect(regions[targ], f"{prev} -> {targ}")
+            for prev, targ, _, _ in val:
+                regions[prev].connect(regions[targ], f"{prev} to {targ}")
 
         #What receptions remain to be unlocked
         reception_region_names = set(location_regions.keys()) - ALWAYS_ACCESSIBLE_REGIONS - {
                 region for chain in FLOOR_ABNOS.values()
-                for prev, targ, _ in chain for region in (prev, targ)
+                for prev, targ, _, _ in chain for region in (prev, targ)
         } - {
             "Reverb Ensemble", "Black Silence Reception", "Distorted Ensemble", "Keter Realization"
+        } - {
+            f"[Ensemble] {floor_name}" for floor_name in FLOOR_ABNOS
         }
         for region_name in reception_region_names:
             entrance = menu_region.connect(regions[region_name])
