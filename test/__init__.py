@@ -1,5 +1,5 @@
-from test.TestBase import WorldTestBase
+from test.bases import WorldTestBase
 
 
 class LORTestBase(WorldTestBase):
-    game = "LibraryOfRuina"
+    game = "Library of Ruina"
